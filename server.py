@@ -6,7 +6,10 @@ app=Flask("EmotionDetector")
 def emotion_detect():
     text_to_analyze=request.args.get('textToAnalyze')
     res=emotion_detector(text_to_analyze)
-    return(f"For the given statement, the system response is 'anger': {res['anger']}, 'disgust': {res['disgust']}, 'fear': {res['fear']}, 'joy': {res['joy']} and 'sadness':{res['sadness']}. The dominant emotion is {res['dominant_emotion']}.")
+    if res['dominant_emotion']==None:
+        return "Invalid text! Please try again!"
+    else:
+        return(f"For the given statement, the system response is 'anger': {res['anger']}, 'disgust': {res['disgust']}, 'fear': {res['fear']}, 'joy': {res['joy']} and 'sadness':{res['sadness']}. The dominant emotion is {res['dominant_emotion']}.")
     
 @app.route("/")
 def indexpg():
